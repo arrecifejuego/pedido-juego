@@ -5,7 +5,7 @@
   <title>Pedir mi Juego</title>
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       text-align: center;
       padding: 40px;
       background-color: #f4f4f4;
@@ -14,6 +14,7 @@
       padding: 10px;
       margin: 10px;
       width: 250px;
+      font-size: 16px;
     }
     button {
       padding: 12px 20px;
@@ -22,6 +23,10 @@
       border: none;
       cursor: pointer;
       font-size: 16px;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #1ebe57;
     }
   </style>
 </head>
@@ -37,18 +42,25 @@
 
 <script>
 function enviarPedido() {
-  var nombre = document.getElementById("nombre").value;
-  var localidad = document.getElementById("localidad").value;
-  var cantidad = document.getElementById("cantidad").value;
+  var nombre = document.getElementById("nombre").value.trim();
+  var localidad = document.getElementById("localidad").value.trim();
+  var cantidad = document.getElementById("cantidad").value.trim();
+
+  if(!nombre || !localidad || !cantidad) {
+    alert("Por favor completa todos los campos.");
+    return;
+  }
 
   var mensaje = "Hola, quiero pedir el juego.%0A%0A" +
                 "Nombre: " + nombre + "%0A" +
                 "Localidad: " + localidad + "%0A" +
                 "Cantidad: " + cantidad;
 
-  var telefono = "5493564242625"; // ← CAMBIA ESTO POR TU NUMERO
+  var mensajeCodificado = encodeURIComponent(mensaje);
 
-  var url = "https://wa.me/" + telefono + "?text=" + mensaje;
+  var telefono = "5493564242625"; // Cambia por tu número con formato internacional
+
+  var url = "https://wa.me/" + telefono + "?text=" + mensajeCodificado;
 
   window.open(url, "_blank");
 }
