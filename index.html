@@ -51,16 +51,11 @@ function enviarPedido() {
     return;
   }
 
-  var mensaje = "Hola, quiero pedir el juego.%0A%0A" +
-                "Nombre: " + nombre + "%0A" +
-                "Localidad: " + localidad + "%0A" +
-                "Cantidad: " + cantidad;
+  var mensaje = "Hola, quiero pedir el juego.\n" +
+              "Nombre: " + nombre + "\n" +
+              "Localidad: " + localidad + "\n" +
+              "Cantidad: " + cantidad;
 
-  var mensajeCodificado = encodeURIComponent(mensaje);
-
-  var telefono = "5493564242625"; // Cambia por tu número con formato internacional
-
-  var url = "https://wa.me/" + telefono + "?text=" + mensajeCodificado;
 
   window.open(url, "_blank");
 }
