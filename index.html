@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <title>Pedir mi Juego</title>
@@ -41,10 +41,10 @@
 <input type="number" id="cantidad" placeholder="Cantidad" min="1" />
 <br />
 
-<button onclick="enviarPedido()">Enviar por WhatsApp</button>
+<button id="btnEnviar">Enviar por WhatsApp</button>
 
 <script>
-function enviarPedido() {
+document.getElementById('btnEnviar').addEventListener('click', function() {
   const nombre = document.getElementById("nombre").value.trim();
   const localidad = document.getElementById("localidad").value.trim();
   const cantidad = document.getElementById("cantidad").value.trim();
@@ -65,9 +65,17 @@ Cantidad: ${cantidad}`;
 
   const url = `https://wa.me/${telefono}?text=${mensajeCodificado}`;
 
-  // Cambiamos window.open por window.location.href para evitar bloqueo popup
-  window.location.href = url;
-}
+  try {
+    // Intentamos abrir en nueva pestaña
+    const nuevaVentana = window.open(url, '_blank');
+
+    if (!nuevaVentana || nuevaVentana.closed || typeof nuevaVentana.closed == 'undefined') {
+      alert('Por favor permite ventanas emergentes para esta página para enviar el mensaje por WhatsApp.');
+    }
+  } catch (error) {
+    alert('Error al intentar abrir WhatsApp: ' + error.message);
+  }
+});
 </script>
 
 </body>
