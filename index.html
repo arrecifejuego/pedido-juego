@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Pedir mi Juego</title>
   <style>
     body {
@@ -34,30 +34,39 @@
 
 <h1>Pedí tu Juego</h1>
 
-<input type="text" id="nombre" placeholder="Nombre"><br>
-<input type="text" id="localidad" placeholder="Localidad"><br>
-<input type="number" id="cantidad" placeholder="Cantidad"><br>
+<input type="text" id="nombre" placeholder="Nombre" />
+<br />
+<input type="text" id="localidad" placeholder="Localidad" />
+<br />
+<input type="number" id="cantidad" placeholder="Cantidad" min="1" />
+<br />
 
 <button onclick="enviarPedido()">Enviar por WhatsApp</button>
 
 <script>
 function enviarPedido() {
-  var nombre = document.getElementById("nombre").value.trim();
-  var localidad = document.getElementById("localidad").value.trim();
-  var cantidad = document.getElementById("cantidad").value.trim();
+  const nombre = document.getElementById("nombre").value.trim();
+  const localidad = document.getElementById("localidad").value.trim();
+  const cantidad = document.getElementById("cantidad").value.trim();
 
-  if(!nombre || !localidad || !cantidad) {
+  if (!nombre || !localidad || !cantidad) {
     alert("Por favor completa todos los campos.");
     return;
   }
 
-  var mensaje = "Hola, quiero pedir el juego.\n" +
-              "Nombre: " + nombre + "\n" +
-              "Localidad: " + localidad + "\n" +
-              "Cantidad: " + cantidad;
+  const mensaje = `Hola, quiero pedir el juego.
+Nombre: ${nombre}
+Localidad: ${localidad}
+Cantidad: ${cantidad}`;
 
+  const mensajeCodificado = encodeURIComponent(mensaje);
 
-  window.open(url, "_blank");
+  const telefono = "5493564242625"; // Cambia por tu número
+
+  const url = `https://wa.me/${telefono}?text=${mensajeCodificado}`;
+
+  // Cambiamos window.open por window.location.href para evitar bloqueo popup
+  window.location.href = url;
 }
 </script>
 
