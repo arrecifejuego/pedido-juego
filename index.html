@@ -1,81 +1,206 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Consegui tu Arrecife</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
-      background-color: #f4f4f4;
-    }
-    input {
-      padding: 10px;
-      margin: 10px;
-      width: 250px;
-      font-size: 16px;
-    }
-    button {
-      padding: 12px 20px;
-      background-color: #25D366;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #1ebe57;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Arrecife</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#000;
+  color:white;
+  font-family:Arial, sans-serif;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  position:relative;
+}
+
+/* Fondo sutil */
+body::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 60%);
+  opacity:0.6;
+}
+
+/* Partículas */
+body::after{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-image:
+    radial-gradient(white 1px, transparent 1px);
+  background-size:120px 120px;
+  opacity:0.05;
+  animation:float 30s linear infinite;
+}
+
+@keyframes float{
+  from{
+    transform:translateY(0px);
+  }
+  to{
+    transform:translateY(-120px);
+  }
+}
+
+.container{
+  width:380px;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+
+.logo{
+  font-size:14px;
+  letter-spacing:6px;
+  opacity:0.7;
+  margin-bottom:25px;
+}
+
+h1{
+  font-size:38px;
+  font-weight:normal;
+  margin-bottom:10px;
+  letter-spacing:2px;
+}
+
+.subtexto{
+  font-size:13px;
+  opacity:0.5;
+  margin-bottom:45px;
+  line-height:1.7;
+}
+
+.input-group{
+  margin-bottom:25px;
+}
+
+input{
+  width:100%;
+  background:transparent;
+  border:none;
+  border-bottom:1px solid rgba(255,255,255,0.25);
+  padding:15px 5px;
+  color:white;
+  font-size:15px;
+  outline:none;
+  transition:0.3s;
+}
+
+input:focus{
+  border-bottom:1px solid white;
+}
+
+input::placeholder{
+  color:rgba(255,255,255,0.35);
+  letter-spacing:1px;
+}
+
+button{
+  margin-top:20px;
+  padding:14px 40px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.4);
+  color:white;
+  letter-spacing:3px;
+  cursor:pointer;
+  transition:0.3s;
+  font-size:12px;
+}
+
+button:hover{
+  background:white;
+  color:black;
+}
+
+.linea{
+  width:100px;
+  height:1px;
+  background:rgba(255,255,255,0.2);
+  margin:35px auto;
+}
+
+</style>
 </head>
+
 <body>
 
-<h1>Consegui tu Arrecife</h1>
+<div class="container">
 
-<input type="text" id="nombre" placeholder="Nombre" />
-<br />
-<input type="text" id="localidad" placeholder="Localidad" />
-<br />
-<input type="number" id="cantidad" placeholder="Cantidad" min="1" />
-<br />
+  <div class="logo">
+    ARRECIFE
+  </div>
 
-<button id="btnEnviar">Enviar por WhatsApp</button>
+  <h1>Solicitar acceso</h1>
+
+  <div class="subtexto">
+    Cada grupo encuentra un arrecife distinto.
+  </div>
+
+  <div class="linea"></div>
+
+  <div class="input-group">
+    <input type="text" id="nombre" placeholder="NOMBRE">
+  </div>
+
+  <div class="input-group">
+    <input type="text" id="localidad" placeholder="LOCALIDAD">
+  </div>
+
+  <div class="input-group">
+    <input type="number" id="cantidad" placeholder="CANTIDAD" min="1">
+  </div>
+
+  <button id="btnEnviar">
+    ENVIAR SEÑAL
+  </button>
+
+</div>
 
 <script>
+
 document.getElementById('btnEnviar').addEventListener('click', function() {
+
   const nombre = document.getElementById("nombre").value.trim();
   const localidad = document.getElementById("localidad").value.trim();
   const cantidad = document.getElementById("cantidad").value.trim();
 
   if (!nombre || !localidad || !cantidad) {
-    alert("Por favor completa todos los campos.");
+    alert("Completa todos los campos.");
     return;
   }
 
-  const mensaje = `¡Hola Eze! Queria saber si puedo conseguir el juego, te dejo mi informacion asi coordinamos:
-Me llamo ${nombre}
-Soy de ${localidad}
-Y quiero ${cantidad} unidad/es `;
+  const mensaje = `Hola Eze.
+Quería consultar por ARRECIFE.
 
-  const mensajeCodificado = encodeURIComponent(mensaje);
+Nombre: ${nombre}
+Localidad: ${localidad}
+Cantidad: ${cantidad}`;
 
-  const telefono = "5493564242625"; // Cambia por tu número
+  const telefono = "5493564242625";
 
-  const url = `https://wa.me/${telefono}?text=${mensajeCodificado}`;
+  const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
 
-  try {
-    // Intentamos abrir en nueva pestaña
-    const nuevaVentana = window.open(url, '_blank');
+  window.open(url, '_blank');
 
-    if (!nuevaVentana || nuevaVentana.closed || typeof nuevaVentana.closed == 'undefined') {
-      alert('Por favor permite ventanas emergentes para esta página para enviar el mensaje por WhatsApp.');
-    }
-  } catch (error) {
-    alert('Error al intentar abrir WhatsApp: ' + error.message);
-  }
 });
+
 </script>
 
 </body>
