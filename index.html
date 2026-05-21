@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -12,6 +13,11 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
+}
+
+html,body{
+  width:100%;
+  height:100%;
 }
 
 body{
@@ -26,65 +32,263 @@ body{
   position:relative;
 }
 
-/* Fondo sutil */
-body::before{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:
-    radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 60%);
-  opacity:0.6;
+/* =========================
+   OCEANO
+========================= */
+
+.ocean{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
 }
 
-/* Partículas */
-body::after{
-  content:"";
+.wave{
+
   position:absolute;
+
+  width:200%;
+  height:200%;
+
+  left:-50%;
+  top:-50%;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(126,231,255,0.04),
+      transparent 60%
+    );
+
+  animation:rotateWave 55s linear infinite;
+
+}
+
+.wave2{
+  animation-duration:85s;
+  opacity:0.5;
+  transform:scale(1.25);
+}
+
+.wave3{
+  animation-duration:120s;
+  opacity:0.2;
+  transform:scale(1.45);
+}
+
+@keyframes rotateWave{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+/* =========================
+   FONDO
+========================= */
+
+body::before{
+
+  content:"";
+
+  position:absolute;
+
   width:100%;
   height:100%;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,255,255,0.04),
+      transparent 60%
+    );
+
+  opacity:0.7;
+
+}
+
+body::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:100%;
+  height:100%;
+
   background-image:
     radial-gradient(white 1px, transparent 1px);
+
   background-size:120px 120px;
+
   opacity:0.05;
+
   animation:float 30s linear infinite;
+
 }
 
 @keyframes float{
+
   from{
     transform:translateY(0px);
   }
+
   to{
     transform:translateY(-120px);
   }
+
 }
 
+/* =========================
+   CRIATURAS
+========================= */
+
+.deep-sea{
+
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+
+}
+
+.creature{
+
+  position:absolute;
+
+  border:
+    1px solid rgba(126,231,255,0.18);
+
+  opacity:0.18;
+
+  border-radius:50%;
+
+  filter:blur(0.4px);
+
+  box-shadow:
+    0 0 20px rgba(126,231,255,0.08);
+
+}
+
+.creature1{
+
+  width:480px;
+  height:150px;
+
+  left:-600px;
+  top:18%;
+
+  animation:swim1 70s linear infinite;
+
+}
+
+.creature2{
+
+  width:280px;
+  height:280px;
+
+  border-radius:35%;
+
+  right:-350px;
+  top:70%;
+
+  transform:rotate(45deg);
+
+  animation:swim2 95s linear infinite;
+
+}
+
+@keyframes swim1{
+
+  from{
+    transform:
+      translateX(0)
+      translateY(0)
+      rotate(0deg);
+  }
+
+  to{
+    transform:
+      translateX(2400px)
+      translateY(35px)
+      rotate(4deg);
+  }
+
+}
+
+@keyframes swim2{
+
+  from{
+    transform:
+      translateX(0)
+      rotate(45deg);
+  }
+
+  to{
+    transform:
+      translateX(-2400px)
+      rotate(90deg);
+  }
+
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+
 .container{
+
   width:380px;
+
   text-align:center;
+
   position:relative;
+
   z-index:2;
+
 }
 
 .logo{
+
   font-size:14px;
+
   letter-spacing:6px;
+
   opacity:0.7;
+
   margin-bottom:25px;
+
 }
 
 h1{
+
   font-size:38px;
+
   font-weight:normal;
+
   margin-bottom:10px;
+
   letter-spacing:2px;
+
 }
 
 .subtexto{
+
   font-size:13px;
+
   opacity:0.5;
+
   margin-bottom:45px;
+
   line-height:1.7;
+
 }
 
 .input-group{
@@ -92,54 +296,117 @@ h1{
 }
 
 input{
+
   width:100%;
+
   background:transparent;
+
   border:none;
-  border-bottom:1px solid rgba(255,255,255,0.25);
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.25);
+
   padding:15px 5px;
+
   color:white;
+
   font-size:15px;
+
   outline:none;
+
   transition:0.3s;
+
 }
 
 input:focus{
-  border-bottom:1px solid white;
+
+  border-bottom:
+    1px solid #7ee7ff;
+
+  box-shadow:
+    0 8px 20px rgba(126,231,255,0.08);
+
 }
 
 input::placeholder{
+
   color:rgba(255,255,255,0.35);
+
   letter-spacing:1px;
+
 }
 
 button{
+
   margin-top:20px;
+
   padding:14px 40px;
+
   background:transparent;
-  border:1px solid rgba(255,255,255,0.4);
+
+  border:
+    1px solid rgba(255,255,255,0.4);
+
   color:white;
+
   letter-spacing:3px;
+
   cursor:pointer;
+
   transition:0.3s;
+
   font-size:12px;
+
 }
 
 button:hover{
-  background:white;
+
+  background:#7ee7ff;
+
   color:black;
+
+  box-shadow:
+    0 0 25px rgba(126,231,255,0.25);
+
 }
 
 .linea{
+
   width:100px;
+
   height:1px;
+
   background:rgba(255,255,255,0.2);
+
   margin:35px auto;
+
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- OCEANO -->
+
+<div class="ocean">
+
+  <div class="wave"></div>
+  <div class="wave wave2"></div>
+  <div class="wave wave3"></div>
+
+</div>
+
+<!-- CRIATURAS -->
+
+<div class="deep-sea">
+
+  <div class="creature creature1"></div>
+  <div class="creature creature2"></div>
+
+</div>
+
+<!-- CONTENIDO -->
 
 <div class="container">
 
@@ -156,15 +423,25 @@ button:hover{
   <div class="linea"></div>
 
   <div class="input-group">
-    <input type="text" id="nombre" placeholder="NOMBRE">
+    <input
+      type="text"
+      id="nombre"
+      placeholder="NOMBRE">
   </div>
 
   <div class="input-group">
-    <input type="text" id="localidad" placeholder="LOCALIDAD">
+    <input
+      type="text"
+      id="localidad"
+      placeholder="LOCALIDAD">
   </div>
 
   <div class="input-group">
-    <input type="number" id="cantidad" placeholder="CANTIDAD" min="1">
+    <input
+      type="number"
+      id="cantidad"
+      placeholder="CANTIDAD"
+      min="1">
   </div>
 
   <button id="btnEnviar">
@@ -175,29 +452,143 @@ button:hover{
 
 <script>
 
-document.getElementById('btnEnviar').addEventListener('click', function() {
+/* =========================
+   AUDIO
+========================= */
 
-  const nombre = document.getElementById("nombre").value.trim();
-  const localidad = document.getElementById("localidad").value.trim();
-  const cantidad = document.getElementById("cantidad").value.trim();
+const audioCtx =
+  new (window.AudioContext ||
+  window.webkitAudioContext)();
+
+function playTone(freq,duration,type,volume){
+
+  const osc =
+    audioCtx.createOscillator();
+
+  const gain =
+    audioCtx.createGain();
+
+  osc.type = type;
+  osc.frequency.value = freq;
+
+  gain.gain.value = volume;
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start();
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.0001,
+    audioCtx.currentTime + duration
+  );
+
+  osc.stop(
+    audioCtx.currentTime + duration
+  );
+
+}
+
+function sonidoHover(){
+
+  playTone(240,0.08,"sine",0.01);
+
+}
+
+function sonidoInput(){
+
+  playTone(320,0.05,"sine",0.012);
+
+}
+
+function sonidoEnviar(){
+
+  playTone(420,0.12,"sine",0.03);
+
+  setTimeout(()=>{
+
+    playTone(620,0.2,"triangle",0.015);
+
+  },80);
+
+}
+
+/* =========================
+   INTERACCIONES
+========================= */
+
+document.querySelectorAll("input")
+.forEach(input=>{
+
+  input.addEventListener("focus",()=>{
+
+    sonidoHover();
+
+  });
+
+  input.addEventListener("keydown",()=>{
+
+    sonidoInput();
+
+  });
+
+});
+
+document.getElementById("btnEnviar")
+.addEventListener("mouseenter",()=>{
+
+  sonidoHover();
+
+});
+
+/* =========================
+   ENVIO
+========================= */
+
+document.getElementById('btnEnviar')
+.addEventListener('click', function() {
+
+  sonidoEnviar();
+
+  const nombre =
+    document.getElementById("nombre")
+    .value.trim();
+
+  const localidad =
+    document.getElementById("localidad")
+    .value.trim();
+
+  const cantidad =
+    document.getElementById("cantidad")
+    .value.trim();
 
   if (!nombre || !localidad || !cantidad) {
+
     alert("Completa todos los campos.");
+
     return;
+
   }
 
-  const mensaje = `Hola Eze.
+  const mensaje =
+`Hola Eze.
 Quería consultar por ARRECIFE.
 
 Nombre: ${nombre}
 Localidad: ${localidad}
 Cantidad: ${cantidad}`;
 
-  const telefono = "5493564242625";
+  const telefono =
+    "5493564242625";
 
-  const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+  const url =
+`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
 
-  window.open(url, '_blank');
+  setTimeout(()=>{
+
+    window.open(url, '_blank');
+
+  },250);
 
 });
 
