@@ -477,7 +477,7 @@ const formularioEl = document.getElementById('formulario');
 
 const BARRA_W = 320; // ancho lógico
 const OLA_W   = 60;
-let olaX = 0; // posición relativa al centro (-1 a +1)
+let olaX = 0.85;
 let olaVel = 0;
 let olaTarget = 0;
 let equilibrado = false;
@@ -487,19 +487,19 @@ let dragStartX = 0;
 let olaStartX = 0;
 
 // física de la ola — oscila sola
-let olaAngle = 0;
-let oscAmplitud = 0.7; // se reduce al equilibrar
+let olaAngle = Math.PI * 0.5;
+let oscAmplitud = 1.0;
 
 function olaLoop(){
   requestAnimationFrame(olaLoop);
 
   if(!dragging){
     // oscilación natural suave
-    olaAngle += 0.018;
+    olaAngle += 0.038;
     const wave = Math.sin(olaAngle) * oscAmplitud;
     const diff = wave - olaX;
-    olaVel += diff * 0.012;
-    olaVel *= 0.94;
+    olaVel += diff * 0.022;
+    olaVel *= 0.90;
     olaX += olaVel;
   }
 
