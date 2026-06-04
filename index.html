@@ -533,6 +533,7 @@ let completado = false;
 let autoCalmaTimer = null;
 let dragging = false;
 let dragStartX = 0;
+let dragStartY = 0;
 let olaStartX = 0;
 
 // física de la ola — oscila sola
@@ -654,19 +655,28 @@ olaEl.addEventListener('touchstart', e=>{
   if(audioCtx.state==='suspended') audioCtx.resume();
   dragging=true;
   dragStartX=e.touches[0].clientX;
+  dragStartY=e.touches[0].clientY;
   olaStartX=olaX;
   oscAmplitud=0.7;
   clearTimeout(autoCalmaTimer);
-  e.preventDefault();
-},{passive:false});
-window.addEventListener('touchmove', e=>{
+},{passive:true});
+
+olaEl.addEventListener('touchmove', e=>{
   if(!dragging) return;
-  const dx=(e.touches[0].clientX-dragStartX)/(BARRA_W/2);
-  olaX=Math.max(-1,Math.min(1,olaStartX+dx));
-  sonarOla();
-  addRipple(e.touches[0].clientX, e.touches[0].clientY);
+  const dx=e.touches[0].clientX-dragStartX;
+  const dy=e.touches[0].clientY-dragStartY;
+  // solo bloquear scroll si el gesto es más horizontal que vertical
+  if(Math.abs(dx)>Math.abs(dy)){
+    e.preventDefault();
+    olaX=Math.max(-1,Math.min(1,olaStartX+dx/(BARRA_W/2)));
+    sonarOla();
+    addRipple(e.touches[0].clientX, e.touches[0].clientY);
+  } else {
+    dragging=false; // gesto vertical = scroll normal
+  }
 },{passive:false});
 window.addEventListener('touchend', ()=>{ dragging=false; });
+window.addEventListener('touchcancel', ()=>{ dragging=false; });
 
 /* ============================
    VALIDACIÓN Y ENVÍO
